@@ -1,0 +1,63 @@
+int getLength(LinkedListNode<int> *head)
+{
+    if(head==NULL)
+    {
+        return 0;
+    }
+    LinkedListNode<int> *head1=head;
+    
+    int i=0;
+    while(head1!=NULL)
+    {
+        head1=head1->next;
+        i++;
+    }
+    return i;
+}
+
+LinkedListNode<int>* removeKthNode(LinkedListNode<int> *head, int K)
+{
+    // Kth Node from end is (size-k)+1 from front
+    
+    
+    int length=getLength(head);
+    if(head==NULL)
+    {
+        return head;
+    }
+    
+    if(K==length)
+    {
+        head=head->next;
+        return head;
+    }
+    
+    if(K==0)
+    {
+        return head;
+    }
+    
+    if(K>length)
+    {
+        return head;
+    }
+    
+    int index=length-K+1;
+    LinkedListNode<int> *temp=head;
+    
+    int i=1;
+    
+    while(temp!=NULL && i<index-1)
+    {
+        temp=temp->next;
+        i++;
+        
+    }
+    LinkedListNode<int> *del=temp->next;
+    temp->next=temp->next->next;
+    
+    delete(del);
+    
+    return head;
+    
+}
