@@ -1,0 +1,103 @@
+
+void leftTree(TreeNode<int>* root,vector<int> & ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    if(root->left)
+    {
+        ans.push_back(root->data);
+        leftTree(root->left,ans);
+    }
+    else if(root->right)
+    {
+        ans.push_back(root->data);
+        leftTree(root->right,ans);
+    }
+}
+
+void rightTree(TreeNode<int>* root,vector<int> & ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    if(root->right!=NULL)
+    {
+        rightTree(root->right,ans);
+        ans.push_back(root->data);
+    }
+    else if(root->left!=NULL)
+    {
+        rightTree(root->left,ans);
+        ans.push_back(root->data);
+    }
+}
+
+void leavesleftTree(TreeNode<int>* root,vector<int> & ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    leavesleftTree(root->left,ans);
+    leavesleftTree(root->right,ans);
+    
+    if(root->left==NULL && root->right==NULL)
+    {
+        ans.push_back(root->data);
+    }
+}
+
+void leavesrightTree(TreeNode<int>* root,vector<int> & ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    leavesrightTree(root->left,ans);
+    leavesrightTree(root->right,ans);
+    
+    if(root->left==NULL && root->right==NULL)
+    {
+        ans.push_back(root->data);
+    }
+}
+
+void boundaryTraversal(TreeNode<int>* root,vector<int> & ans)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    
+    ans.push_back(root->data);
+    
+    // left part Of The Tree
+    leftTree(root->left,ans);
+    
+    // leve node of left Tree
+    leavesleftTree(root->left,ans);
+    
+    // leave of right tree
+    leavesrightTree(root->right,ans);
+    
+    // right Part of Tree In reverse order
+    rightTree(root->right,ans);
+}
+
+vector<int> traverseBoundary(TreeNode<int>* root){
+    
+    vector<int> ans;
+    
+    boundaryTraversal(root,ans);
+    
+    return ans;
+    
+    
+}
