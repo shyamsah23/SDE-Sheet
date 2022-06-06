@@ -1,0 +1,35 @@
+// Brute force using set
+
+Node* intersect(Node *firstHead, Node *secondHead)
+{
+    unordered_set<Node*> s;
+    Node* first=firstHead;
+    Node* second=secondHead;
+    
+    while(first!=NULL)
+    {
+        s.insert(first);
+        first=first->next;
+    }
+    
+    while(second!=NULL)
+    {
+        if(s.find(second)!=s.end())
+        {
+            return second;
+        }
+        second=second->next;
+    }
+    return NULL;
+}
+
+int findIntersection(Node *firstHead, Node *secondHead)
+{
+    Node* ans=intersect(firstHead,secondHead);
+    if(ans!=NULL)
+    {
+        return ans->data;
+    }
+    return -1;
+    
+}
