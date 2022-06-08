@@ -1,0 +1,86 @@
+bool isPossible(vector<vector<int>> & board,vector<vector<int>> & ans,int x,int y,int n)
+{
+    int row=x;
+    int col=y;
+    
+    while(col>=0)
+    {
+        if(board[row][col]==1)
+        {
+            return false;
+        }
+        col--;
+    }
+    
+    row=x;
+    col=y;
+    
+    while(row>=0 && col>=0)
+    {
+        if(board[row][col]==1)
+        {
+            return false;
+        }
+        row--;
+        col--;
+    }
+    
+    row=x;
+    col=y;
+    
+    while(row<n && col>=0)
+    {
+         if(board[row][col]==1)
+        {
+            return false;
+        }
+        row++;
+        col--;
+    }
+    
+    return true;
+}
+
+void push(vector<vector<int>> & board,vector<vector<int>> & ans,int n)
+{
+    vector<int> temp;
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            temp.push_back(board[i][j]);
+        }
+    }
+    
+    ans.push_back(temp);
+}
+
+void solve(int n,vector<vector<int>> & board,vector<vector<int>> & ans,int j)
+{
+    if(j==n)
+    {
+        push(board,ans,n);
+        return;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        if(isPossible(board,ans,i,j,n))
+        {
+            board[i][j]=1;
+            solve(n,board,ans,j+1);
+            board[i][j]=0;
+        }
+    }
+}
+
+vector<vector<int>> solveNQueens(int n) {
+    // Write your code here
+    vector<vector<int>> board(n,vector<int>(n,0));
+    vector<vector<int>> ans;
+    
+    solve(n,board,ans,0);
+    
+    return ans;
+}
