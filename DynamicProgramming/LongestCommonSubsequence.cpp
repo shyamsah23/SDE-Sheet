@@ -12,7 +12,7 @@ int longestCommonSubsequence(string s1,string s2,int index1,int index2,int n1,in
 
     if(s1[index1]==s2[index2])
     { 
-        return 1+longestCommonSubsequence(s1,s2,index1+1,index2+1,n1,n2,dp);
+        return dp[index1][index2]= 1+longestCommonSubsequence(s1,s2,index1+1,index2+1,n1,n2,dp);
     }
     else
     {
